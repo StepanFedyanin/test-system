@@ -1,0 +1,25 @@
+$color-TitanWhite: #F5F3FF;
+$color-white: #ffffff;
+$color-black: #000;
+$color-DaisyBush: #4B2DA7;
+$color-Portage: #8d6eef;
+$color-Portage-07: rgba(141, 110, 239, 0.70);
+$color-BlueMarguerite: #816CC1;
+$color-Tundora: #474747;
+$color-Boulder: #787878;
+$color-Nobel: #B7B7B7;
+$color-Bombay: #B2B6BC;
+
+$font-family-base: 'Inter', sans-seri;
+$fonts-size-base: 16px;
+$b-radius: 10px;
+$b-radius-more: 30px;
+$box-shadow: -10px -10px 20px 0px #FFF, 10px 10px 20px 0px rgba(170, 170, 204, 0.50), 5px 5px 10px 0px rgba(170, 170, 204, 0.25), -5px -5px 10px 0px rgba(255, 255, 255, 0.50);
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1400px
+) !default;

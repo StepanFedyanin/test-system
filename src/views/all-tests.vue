@@ -1,0 +1,98 @@
+<template>
+    <div>
+        <top-bar class="mt-4 mb-4"/>
+        <HistoryPage class="mb-4"/>
+        <div class="testCard testCard-point text-default7 text-color-Tundora mb-4">
+            Быстрая навигация по популярным тестам и тематикам. Всего на сайте более тысячи тестов, найти нужный можно
+            при помощи подробного <span class="text-color-BlueMarguerite">тематического указателя</span>, по каталогу
+            <span class="text-color-BlueMarguerite">авторов</span>, или <span
+            class="text-color-BlueMarguerite">поиском</span> по названию. Можно посмотреть <span
+            class="text-color-BlueMarguerite">полный список</span>.
+        </div>
+        <div class="d-flex gap-3 mb-3">
+            <b-button
+                v-for="testFilter in testFilters"
+                :key="testFilter.type"
+                :variant="currentFilter.type===testFilter.type?'primary':'outline-primary'"
+                @click="changeCurrentType(testFilter.type)"
+                class="px-5"
+            >
+                {{ testFilter.name }}
+            </b-button>
+        </div>
+        <div class="mb-3 text-default5 text-color-Boulder">
+            Сортировать по:
+            <b-button
+                v-for="testFilterAds in testFiltersAds"
+                :key="testFilterAds.type"
+                :variant="currentFilter.sorted===testFilterAds.type?'secondary active':'secondary'"
+                @click="changeCurrentSorted(testFilterAds.type)"
+                class="p-0 mx-1"
+            >
+                {{ testFilterAds.name }}
+            </b-button>
+
+        </div>
+        <div class="mb-5 d-flex align-items-center form__inside px-2 w-25">
+            <b-form-input
+                class="form__input"
+                placeholder="Поиск"
+            />
+            <b-button pill variant="light">
+                <img src="@/assets/img/icon/search.svg" alt="">
+            </b-button>
+        </div>
+        <div>
+            <TestCard :isPassed="false" :tests="[1,2,3,4,5,6,7,8]" class="w-25"/>
+        </div>
+    </div>
+</template>
+
+<script>
+import TopBar from "@/components/top-bar.vue";
+import HistoryPage from "@/components/history-page.vue";
+import TestCard from "@/components/test-card.vue";
+
+export default {
+    name: "AllTest",
+    components: {TestCard, HistoryPage, TopBar},
+    data() {
+        return {
+            testFilters: [
+                {
+                    name: 'Тесты',
+                    type: 'test'
+                },
+                {
+                    name: 'Темы',
+                    type: 'topics'
+                },
+                {
+                    name: 'Авторы',
+                    type: 'authors'
+                }
+            ],
+            testFiltersAds: [
+                {
+                    name: 'Сложности',
+                    type: 'difficulties'
+                },
+                {
+                    name: 'Популярности',
+                    type: 'popularity'
+                }
+            ],
+            currentFilter: {type: 'test', sorted: 'difficulties', searchValue: ''},
+            tests: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        }
+    },
+    methods: {
+        changeCurrentType(type) {
+            this.currentFilter = {...this.currentFilter, type};
+        },
+        changeCurrentSorted(sorted) {
+            this.currentFilter = {...this.currentFilter, sorted};
+        }
+    }
+}
+</script>

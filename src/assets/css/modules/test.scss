@@ -1,0 +1,34 @@
+.attempts{
+  border-radius: $b-radius;
+  overflow: hidden;
+  background: $color-white;
+  box-shadow: $box-shadow;
+  thead{
+    color: $color-Portage;
+    font-family: $font-family-base;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #E9F0F4;
+    background: #FBFCFE;
+    td{
+      padding: 10px 16px;
+    }
+  }
+  tbody{
+    color: $color-Tundora;
+    font-family: $font-family-base;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    td{
+      padding: 16px;
+    }
+  }
+  tr:not(:last-child){
+    border-bottom: 1px solid #E9F0F4;
+  }
+}
