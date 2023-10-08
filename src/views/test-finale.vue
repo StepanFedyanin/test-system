@@ -1,10 +1,10 @@
 <template>
     <div>
         <history-page class="mt-4 mb-5"/>
-        <p class="text-default7 text-color-Tundora mb-3">
+        <p class="text-success mb-3">
             Внимание! Результаты и интерпретации, полученные без участия специалистов, не следует воспринимать слишком
             серьезно. Диагностическую ценность имеют только исследования, проведенные <span
-            class="text-color-BlueMarguerite">профессиональным психологом</span>.
+            class="text-primary">профессиональным психологом</span>.
         </p>
         <p class="testCard testCard-point testCard-background py-1 fw-bold mb-4">
             Ссылка на результаты теста: <span class="fw-normal">Ссылка</span>

@@ -50,10 +50,10 @@
                                 variant="primary"
                             >Регистрация
                             </b-button>
-                            <p class="text-small text-md-center text-color-Tundora">Регистрируясь, вы соглашаетесь с
-                                <span class="text-color-BlueMarguerite">пользовательским соглашением</span>
+                            <p class="h6 text-md-center text-secondary">Регистрируясь, вы соглашаетесь с
+                                <span class="text-primary">пользовательским соглашением</span>
                                 и даете
-                                согласие на обработку <span class="text-color-BlueMarguerite">персональных данных</span>
+                                согласие на обработку <span class="text-primary">персональных данных</span>
                             </p>
                         </b-form>
                     </b-tab>

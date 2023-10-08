@@ -1,13 +1,13 @@
 <template>
     <div>
-        <top-bar class="mt-4 mb-4"/>
+        <top-bar class="mb-4"/>
         <HistoryPage class="mb-4"/>
-        <div class="testCard testCard-point text-default7 text-color-Tundora mb-4">
+        <div class="testCard testCard-point text-secondary mb-4">
             Быстрая навигация по популярным тестам и тематикам. Всего на сайте более тысячи тестов, найти нужный можно
-            при помощи подробного <span class="text-color-BlueMarguerite">тематического указателя</span>, по каталогу
-            <span class="text-color-BlueMarguerite">авторов</span>, или <span
-            class="text-color-BlueMarguerite">поиском</span> по названию. Можно посмотреть <span
-            class="text-color-BlueMarguerite">полный список</span>.
+            при помощи подробного <span class="text-primary">тематического указателя</span>, по каталогу
+            <span class="text-primary">авторов</span>, или <span
+            class="text-primary">поиском</span> по названию. Можно посмотреть <span
+            class="text-primary">полный список</span>.
         </div>
         <div class="d-flex gap-3 mb-3">
             <b-button
@@ -20,7 +20,7 @@
                 {{ testFilter.name }}
             </b-button>
         </div>
-        <div class="mb-3 text-default5 text-color-Boulder">
+        <div class="mb-3 text-success">
             Сортировать по:
             <b-button
                 v-for="testFilterAds in testFiltersAds"

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <p class="text-default5 text-color-Boulder mb-1">Личный кабинет - Все тесты</p>
-        <h1 class="text-default text-color-BlueMarguerite">Все тесты</h1>
+        <p class="text-success mb-1">Личный кабинет - Все тесты</p>
+        <h2 class="text-primary">Все тесты</h2>
     </div>
 </template>
 

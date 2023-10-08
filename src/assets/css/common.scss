@@ -13,7 +13,6 @@ html {
 body {
   font-family: $font-family-base;
   font-size: $fonts-size-base;
-  //line-height: $line-height-base;
   color: $color-black;
   background-color: $color-TitanWhite;
   position: relative;
@@ -22,26 +21,27 @@ body {
 }
 
 h1, .h1 {
-  font-size: 3.25rem;
+  font-size: $h1-fz;
 }
 
 h2, .h2 {
-  font-size: 1.75rem;
+  font-size: $h2-fz;
 }
 
 h3, .h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: $h3-fz;
 }
 
 h4, .h4 {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: $h4-fz;
 }
 
 h5, .h5 {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: $h5-fz;
+}
+
+h6, .h6 {
+  font-size: $h6-fz;
 }
 
 p {
@@ -56,7 +56,8 @@ button {
 a {
   text-decoration: none;
 }
-ul{
+
+ul {
   list-style-type: none;
   padding: 0;
 }
@@ -65,61 +66,6 @@ ul{
   height: 100%;
 }
 
-//.btn {
-//  border-radius: $b-radius-more;
-//  font-family: $font-family-base;
-//  font-style: normal;
-//  font-weight: 600;
-//  line-height: normal;
-//
-//  &-fill {
-//    border: 1px solid $color-Portage;
-//    background-color: $color-Portage;
-//    filter: drop-shadow(-10px -10px 20px #FFF) drop-shadow(10px 10px 20px rgba(170, 170, 204, 0.50)) drop-shadow(5px 5px 10px rgba(170, 170, 204, 0.25)) drop-shadow(-5px -5px 10px rgba(255, 255, 255, 0.50));
-//    font-size: 20px;
-//    padding: 18px 0;
-//
-//    &:hover, &:active {
-//      background-color: $color-Portage-07;
-//      border: 1px solid $color-Portage-07;
-//    }
-//  }
-//
-//  &-border {
-//    background-color: $color-white;
-//    color: $color-Portage;
-//    border: 2px solid $color-Portage;
-//    font-size: 16px;
-//    padding: 15px 0;
-//
-//    &:hover, &:active {
-//      background-color: $color-Portage-07;
-//      border: 2px solid $color-Portage-07;
-//    }
-//  }
-//
-//  &-default {
-//    background-color: transparent;
-//    color: $color-Tundora;
-//    border: none;
-//    border-radius: 0;
-//
-//    &:hover, &:active {
-//      background-color: transparent !important;
-//      color: $color-Tundora !important;;
-//      border: none !important;;
-//    }
-//  }
-//
-//  &-b-top {
-//    border-top: 1px solid;
-//
-//    &:hover, &:active {
-//      border-top: 1px solid !important;
-//    }
-//  }
-//}
-//
 .form {
   &__input {
     background-color: $color-TitanWhite;
@@ -177,6 +123,7 @@ ul{
 
     input {
       background: transparent;
+
       &:focus {
         background: transparent;
       }

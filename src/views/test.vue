@@ -1,6 +1,6 @@
 <template>
     <div>
-        <TopBar class="mt-4"/>
+        <TopBar/>
         <router-view/>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <top-bar class="mt-4 mb-4"/>
+        <top-bar class="mb-4"/>
         <HistoryPage class="mb-4"/>
         <div class="d-flex flex-column flex-grow-1 gap-3 justify-content-center">
             <test-card :isPassed="true"/>

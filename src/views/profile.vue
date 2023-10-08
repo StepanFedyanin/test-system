@@ -1,5 +1,5 @@
 <template>
-    <TopBar class="mt-4"/>
+    <TopBar/>
     <div class="row mt-4 pb-5">
         <div class="col-3">
             <b-form class="tab tab-radius-small p-4 form">
@@ -7,9 +7,9 @@
                     <div class="user__cover">
                         <img class="w-100" src="@/assets/img/icon/profile-user.svg" alt=""/>
                     </div>
-                    <p class="d-flex flex-column text-default4 text-color-DaisyBush">
+                    <p class="d-flex flex-column h6 text-primary fw-bolder">
                         Фамилия <br/> Имя
-                        <span class="title-default2 text-color-Boulder">
+                        <span class="h6 text-success">
                             {{ 'name@mail.ru' }}
                         </span>
                     </p>
@@ -72,8 +72,8 @@
             </b-form>
         </div>
         <div class="col-9 d-flex flex-column">
-            <h1 class="d-flex gap-2 flex-column d-flex flex-column flex-grow-0 text-default text-color-BlueMarguerite">
-                <span class="text-default5 text-color-Boulder">
+            <h1 class="d-flex flex-column h2 text-primary">
+                <span class="h5 text-success">
                     Личный кабинет
                 </span>
                 Пройденные тесты

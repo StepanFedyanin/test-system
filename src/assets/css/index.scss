@@ -1,10 +1,11 @@
 @import "./settings";
-@import "./common";
-@import "./text";
 @import "./mixins/root";
+@import "./mixins/variables";
 @import "./modules/fonts";
 @import "./modules/home";
 @import "./modules/top-bar";
 @import "./modules/profile";
 @import "./modules/test-card";
 @import "./modules/test";
+@import "./common";
+
