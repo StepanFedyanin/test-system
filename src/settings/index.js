@@ -1,5 +1,1 @@
-import {accountMenu} from "@/settings/development";
-
-export {
-    accountMenu
-}
+throw new Error('Settings module must be replaced depending on mode');

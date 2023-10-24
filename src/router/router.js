@@ -1,6 +1,4 @@
 import {createRouter, createWebHistory} from 'vue-router';
-// import { helpers } from '@/utils/helpers';
-// import store from '@/store/store';
 import home from '@/views/home.vue';
 import auth from "@/views/auth.vue";
 import profile from "@/views/profile.vue";
@@ -9,41 +7,29 @@ import PassedTests from "@/views/passed-tests.vue";
 import Test from "@/views/test.vue";
 import testDescription from "@/views/test-description.vue";
 import testFinale from "@/views/test-finale.vue";
+import testResponse from "@/views/test-response.vue";
 
-const routes = [
+
+const notAuthorizedRoutes = [
     {
         path: '/',
         name: 'home',
         component: home,
-        meta: {title: 'ProTest'},
+        meta: {title: ''},
         props: true
     },
     {
         path: '/auth',
         name: 'auth',
         component: auth,
-        meta: {title: 'ProTest'},
-        props: true,
-    },
-    {
-        path: '/profile',
-        name: 'profile',
-        component: profile,
-        meta: {title: 'ProTest'},
+        meta: {title: ''},
         props: true,
     },
     {
         path: '/tests',
         name: 'tests',
         component: AllTests,
-        meta: {title: 'ProTest'},
-        props: true,
-    },
-    {
-        path: '/passed_tests',
-        name: 'passed_tests',
-        component: PassedTests,
-        meta: {title: 'ProTest'},
+        meta: {title: 'Все тесты'},
         props: true,
     },
     {
@@ -52,7 +38,7 @@ const routes = [
         component: Test,
         meta: {title: 'ProTest'},
         props: true,
-        redirect: { name: 'description' },
+        redirect: {name: 'description'},
         children: [
             {
                 path: '',
@@ -62,26 +48,103 @@ const routes = [
                 props: true
             },
             {
-                path: 'finale',
+                path: '/response',
+                name: 'response',
+                component: testResponse,
+                meta: {title: 'Описание теста', step: 2, requiresAuth: true},
+                props: true
+            },
+            {
+                path: '/finale',
                 name: 'finale',
                 component: testFinale,
-                meta: {title: 'Описание теста', step: 2, requiresAuth: true},
+                meta: {title: 'Описание теста', step: 3, requiresAuth: true},
                 props: true
             }
         ]
     },
-
+]
+const authorizedRoutes = [
+    {
+        path: '/',
+        name: 'home',
+        component: home,
+        meta: {title: ''},
+        props: true
+    },
+    {
+        path: '/auth',
+        name: 'auth',
+        component: auth,
+        meta: {title: ''},
+        props: true,
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: profile,
+        meta: {title: 'Личный кабинет'},
+        props: true,
+    },
+    {
+        path: '/tests',
+        name: 'tests',
+        component: AllTests,
+        meta: {title: 'Все тесты'},
+        props: true,
+    },
+    {
+        path: '/passed_tests',
+        name: 'passed_tests',
+        component: PassedTests,
+        meta: {title: 'Пройденные тесты'},
+        props: true,
+    },
+    {
+        path: '/test',
+        name: 'test',
+        component: Test,
+        meta: {title: 'ProTest'},
+        props: true,
+        redirect: {name: 'description'},
+        children: [
+            {
+                path: '',
+                name: 'description',
+                component: testDescription,
+                meta: {title: 'Описание теста', step: 1, requiresAuth: true},
+                props: true
+            },
+            {
+                path: '/response',
+                name: 'response',
+                component: testResponse,
+                meta: {title: 'Описание теста', step: 2, requiresAuth: true},
+                props: true
+            },
+            {
+                path: '/finale',
+                name: 'finale',
+                component: testFinale,
+                meta: {title: 'Описание теста', step: 3, requiresAuth: true},
+                props: true
+            }
+        ]
+    },
 ];
+
+const authUser = this?.$store?.state?.access;
 
 const router = createRouter({
     history: createWebHistory(),
     linkActiveClass: 'is-subactive',
     linkExactActiveClass: 'is-active',
-    routes
+    routes: !authUser ? authorizedRoutes : notAuthorizedRoutes
 });
 
 router.beforeEach((to, from, next) => {
-    document.title = to.meta.title + ' - L Radio Direct' || 'L Radio Direct';
+    document.title = to.meta.title + ' - ProTest' || 'ProTest';
+    console.log(to, from, next);
     // if (to.matched.some(record => record.meta.requiresAuth)) {
     //     if (store.state.user && store.state.user.id) {
     //         let jwt = helpers.parseJwt(store.state.access);
@@ -96,7 +159,7 @@ router.beforeEach((to, from, next) => {
     //         next({ name: 'auth' });
     //     }
     // } else {
-        next();
+    next();
     // }
 });
 

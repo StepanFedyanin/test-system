@@ -1,15 +1,15 @@
 <template>
-    <div>
-        <TopBar/>
+    <TopBar class="mb-4"/>
+    <history-page class="mb-4"/>
         <router-view/>
-    </div>
 </template>
 
 <script>
 import TopBar from "@/components/top-bar.vue";
+import HistoryPage from "@/components/history-page.vue";
 
 export default {
     name: "TestPage",
-    components: {TopBar}
+    components: {HistoryPage,TopBar},
 }
 </script>

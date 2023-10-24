@@ -1,5 +1,5 @@
 <template>
-    <div class="container h-100">
+    <div class="container pb-5">
         <router-view/>
     </div>
 </template>
@@ -8,6 +8,11 @@
 
 export default {
     name: 'app',
+    computed: {
+        user() {
+            return this.$store.state.user;
+        }
+    },
 }
 </script>
 <style lang="sass">

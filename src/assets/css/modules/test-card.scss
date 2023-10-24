@@ -2,11 +2,11 @@
   padding: 0;
 
   &-boxshadow {
-    box-shadow: $box-shadow;
+    box-shadow: $box-shadow-volume;
   }
 
   &-background {
-    background-color: $color-white;
+    background-color: rgba(var(--bs-white-rgb),1);
     border-radius: $b-radius;
   }
 
@@ -15,7 +15,7 @@
   }
 
   &-title {
-    background: $color-Portage;
+    background: rgba(var(--bs-info-rgb),1);
     border-radius: $b-radius;
     padding: 0.5rem 1rem;
   }
@@ -30,7 +30,7 @@
       top: 0;
       left: 0;
       bottom: 0;
-      background-color: $color-Portage;
+      background-color: rgba(var(--bs-info-rgb),1);
       width: 15px;
       border-radius: $b-radius-more;
     }
@@ -47,7 +47,7 @@
     }
 
     &:hover {
-      background: $color-Portage-07;
+      background: rgba(var(--bs-info-rgb),0.7);
     }
   }
 }

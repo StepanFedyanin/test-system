@@ -1,9 +1,10 @@
 <template>
     <TopBar/>
-    <div class="row mt-4 pb-5">
-        <div class="col-3">
-            <b-form class="tab tab-radius-small p-4 form">
-                <div class="user d-flex gap-3 align-items-center mb-4">
+    <div class="row mt-4">
+        <div :class="`user col-12 col-lg-4 col-xl-3 ${showMenu?'user__active':''}`" @click="hadlerShowMenu">
+            <b-form :class="`tab tab__drop tab-radius-small p-4 form ${showMenu?'tab__drop--active':''}`" @click="e=>{e.stopPropagation()}">
+                <button class="tab__exit" @click="hadlerShowMenu"></button>
+                <div class="d-flex gap-3 align-items-center mb-4">
                     <div class="user__cover">
                         <img class="w-100" src="@/assets/img/icon/profile-user.svg" alt=""/>
                     </div>
@@ -71,7 +72,7 @@
                 <b-button variant="primary" class="p-2">Сохранить</b-button>
             </b-form>
         </div>
-        <div class="col-9 d-flex flex-column">
+        <div class="col-12 col-lg-8 col-xl-9 d-flex flex-column">
             <h1 class="d-flex flex-column h2 text-primary">
                 <span class="h5 text-success">
                     Личный кабинет
@@ -79,6 +80,13 @@
                 Пройденные тесты
             </h1>
             <div class="d-flex flex-column flex-grow-1 gap-3 justify-content-center">
+                <test-card :isPassed="true"/>
+                <test-card :isPassed="true"/>
+                <test-card :isPassed="true"/>
+                <test-card :isPassed="true"/>
+                <test-card :isPassed="true"/>
+                <test-card :isPassed="true"/>
+                <test-card :isPassed="true"/>
                 <test-card :isPassed="true"/>
                 <div class="d-flex justify-content-end mt-3">
                     <b-button variant="primary" class="w-auto px-4" @click="next('tests')">ВСЕ ТЕСТЫ</b-button>
@@ -94,15 +102,19 @@ import TestCard from "@/components/test-card.vue";
 
 export default {
     name: "ProfilePage",
-    components: {TestCard, TopBar},
+    components: {TestCard,TopBar},
     data() {
         return {
-            passedTests: [1, 2, 3, 4, 5, 6, 7]
+            passedTests: [1, 2, 3, 4, 5, 6, 7],
+            showMenu: true,
         }
     },
     methods: {
         next(params) {
             this.$router.push(params)
+        },
+        hadlerShowMenu() {
+            this.showMenu = !this.showMenu;
         }
     }
 }

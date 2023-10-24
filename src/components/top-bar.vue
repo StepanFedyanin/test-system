@@ -1,27 +1,51 @@
 <template>
-    <div class="topBar row p-4 align-items-center">
-        <b-button :class="`topBar__title ${isAuth?'col-2':'col-10'}`" @click="next('profile')">Pro<span>Test</span>
-        </b-button>
-        <template v-if="isAuth">
-            <div class="col-8 d-flex gap-3">
-                <router-link
-                    v-for="item in accountMenu"
-                    :key="item.name"
-                    class="topBar__link text-uppercase fw-bold"
-                    :to="item.link"
-                    :title="item.title"
-                >
-                    {{ item.title }}
-                </router-link>
+    <div class="topBar ">
+        <div class="topBar__content p-4 align-items-center row">
+            <b-button class="topBar__title col-2" @click="next('profile')">Pro<span>Test</span>
+            </b-button>
+            <div :class="`topBar__menu ${showMainMenu?'topBar__menu--active':''} col-md-6 col-lg-7`" @click="handlerShowMainMenu">
+                <div :class="`${showMainMenu?'topBar__content--show':''} topBar__content d-flex flex-sm-column flex-md-row  gap-3`" @click="(e)=>e.stopPropagation()">
+                    <button @click="handlerShowMainMenu" :class="`topBar__burger ${showMainMenu?'topBar__burger--active':''}`">
+                        <span/>
+                    </button>
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0">Личный кабинет</b-button>
+                    <router-link
+                        v-for="item in accountMenu"
+                        :key="item.name"
+                        class="topBar__link text-uppercase fw-bold"
+                        :to="item.link"
+                        :title="item.title"
+                    >
+                        {{ item.title }}
+                    </router-link>
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0">Выход</b-button>
+                </div>
             </div>
-        </template>
-        <div v-if="isAuth" class="d-flex align-items-center gap-2 col-2 h6 text-primary">
-            {{ 'name@mail.ru' }}
-            <div class="topBar__user">
-                <img src="@/assets/img/icon/profile-user.svg" alt=""/>
+            <div v-if="user" class="d-sm-none d-md-flex col-md-4 col-lg-3">
+                <div class="topBar__info d-flex align-items-center h5 text-primary gap-2" @click="handlerShowMenu">
+                    {{ 'name@mail.ru' }}
+                    <div class="topBar__user">
+                        <img src="@/assets/img/icon/profile-user.svg" alt=""/>
+                    </div>
+                </div>
             </div>
+            <b-button v-else variant="outline-primary" class="col-2 py-2 px-3" @click="next">вход / регистрация
+            </b-button>
+            <button @click="handlerShowMainMenu" :class="`${showMainMenu?'topBar__burger topBar__burger--active':'topBar__burger'}`">
+                <span/>
+            </button>
         </div>
-        <b-button v-else variant="outline-primary" class="col-2 py-2 px-3" @click="next">вход / регистрация</b-button>
+        <ul :class="showDropMenu? 'topBar__dropdown dropdown-menu show':'dropdown-menu'">
+            <li class="mx-2">
+                <b-button class="text-primary fw-bold">{{ 'Имя Фамилия' }}</b-button>
+            </li>
+            <li class="mx-2">
+                <b-button class="text-primary">Личный кабинет</b-button>
+            </li>
+            <li class="mx-2 border-top">
+                <b-button class="text-primary">Выход</b-button>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -32,13 +56,29 @@ export default {
     name: "TopBar",
     data() {
         return {
-            accountMenu: accountMenu,
-            isAuth: true
+            accountMenu: [],
+            showDropMenu: false,
+            user: null,
+            showMainMenu:false
+        }
+    },
+    created() {
+        this.user = this.$store.state.user;
+        if (this.user) {
+            this.accountMenu = accountMenu.authorized;
+        } else {
+            this.accountMenu = accountMenu.notAuthorized;
         }
     },
     methods: {
         next(params) {
             this.$router.push({name: params || 'auth'});
+        },
+        handlerShowMenu() {
+            this.showDropMenu = !this.showDropMenu;
+        },
+        handlerShowMainMenu(){
+            this.showMainMenu = !this.showMainMenu;
         }
     }
 }

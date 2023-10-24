@@ -1,54 +1,61 @@
 <template>
-    <div>
-        <top-bar class="mb-4"/>
-        <HistoryPage class="mb-4"/>
-        <div class="testCard testCard-point text-secondary mb-4">
-            Быстрая навигация по популярным тестам и тематикам. Всего на сайте более тысячи тестов, найти нужный можно
-            при помощи подробного <span class="text-primary">тематического указателя</span>, по каталогу
-            <span class="text-primary">авторов</span>, или <span
-            class="text-primary">поиском</span> по названию. Можно посмотреть <span
-            class="text-primary">полный список</span>.
-        </div>
-        <div class="d-flex gap-3 mb-3">
-            <b-button
-                v-for="testFilter in testFilters"
-                :key="testFilter.type"
-                :variant="currentFilter.type===testFilter.type?'primary':'outline-primary'"
-                @click="changeCurrentType(testFilter.type)"
-                class="px-5"
-            >
-                {{ testFilter.name }}
-            </b-button>
-        </div>
-        <div class="mb-3 text-success">
-            Сортировать по:
-            <b-button
-                v-for="testFilterAds in testFiltersAds"
-                :key="testFilterAds.type"
-                :variant="currentFilter.sorted===testFilterAds.type?'secondary active':'secondary'"
-                @click="changeCurrentSorted(testFilterAds.type)"
-                class="p-0 mx-1"
-            >
-                {{ testFilterAds.name }}
-            </b-button>
+    <top-bar class="mb-4"/>
+    <HistoryPage class="mb-4"/>
+    <div class="testCard testCard-point text-secondary mb-4">
+        Быстрая навигация по популярным тестам и тематикам. Всего на сайте более тысячи тестов, найти нужный можно
+        при помощи подробного <span class="text-primary">тематического указателя</span>, по каталогу
+        <span class="text-primary">авторов</span>, или <span
+        class="text-primary">поиском</span> по названию. Можно посмотреть <span
+        class="text-primary">полный список</span>.
+    </div>
+    <div class="d-flex gap-3 mb-3 flex-wrap">
+        <b-button
+            v-for="testFilter in testFilters"
+            :key="testFilter.type"
+            :variant="currentFilter.type===testFilter.type?'primary':'outline-primary'"
+            @click="changeCurrentType(testFilter.type)"
+            class="px-5"
+        >
+            {{ testFilter.name }}
+        </b-button>
+    </div>
+    <div class="mb-3 text-success">
+        Сортировать по:
+        <b-button
+            v-for="testFilterAds in testFiltersAds"
+            :key="testFilterAds.type"
+            :variant="currentFilter.sorted===testFilterAds.type?'secondary active':'secondary'"
+            @click="changeCurrentSorted(testFilterAds.type)"
+            class="p-0 mx-1"
+        >
+            {{ testFilterAds.name }}
+        </b-button>
 
-        </div>
-        <div class="mb-5 d-flex align-items-center form__inside px-2 w-25">
-            <b-form-input
-                class="form__input"
-                placeholder="Поиск"
-            />
-            <b-button pill variant="light">
-                <img src="@/assets/img/icon/search.svg" alt="">
-            </b-button>
-        </div>
-        <div>
-            <TestCard :isPassed="false" :tests="[1,2,3,4,5,6,7,8]" class="w-25"/>
-        </div>
+    </div>
+    <div class="mb-5 d-flex align-items-center form__inside px-2 col-6 col-md-4 col-lg-3">
+        <b-form-input
+            class="form__input"
+            placeholder="Поиск"
+        />
+        <b-button pill variant="light">
+            <img src="@/assets/img/icon/search.svg" alt="">
+        </b-button>
+    </div>
+    <div class="row gx-2">
+        <TestCard
+            v-for="testCategory in testsCategory"
+            :title="testCategory.name"
+            :id="testCategory.id"
+            :key="testCategory.id"
+            :isPassed="false"
+            :tests="testCategory.test"
+            class="col-sm-6 col-md-4 col-lg-3"
+        />
     </div>
 </template>
 
 <script>
+import {app} from "@/services";
 import TopBar from "@/components/top-bar.vue";
 import HistoryPage from "@/components/history-page.vue";
 import TestCard from "@/components/test-card.vue";
@@ -83,8 +90,16 @@ export default {
                 }
             ],
             currentFilter: {type: 'test', sorted: 'difficulties', searchValue: ''},
-            tests: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            testsCategory: []
         }
+    },
+    created() {
+        app.getCategory().then((res) => {
+            this.testsCategory = res;
+        }).catch((error) => {
+            this.$store.dispatch('showError', error);
+            console.error(error);
+        })
     },
     methods: {
         changeCurrentType(type) {

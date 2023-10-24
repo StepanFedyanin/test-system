@@ -1,20 +1,25 @@
 <template>
     <template v-if="isPassed">
-        <div class="testCard testCard-background testCard-point testCard-small d-flex justify-content-between" @click="next('test')">
+        <div class="testCard testCard-background testCard-point testCard-small d-flex justify-content-between"
+             @click="next()">
             <p class="text-secondary fw-medium">Тест Название</p>
             <p class="text-primary testCard-arrow">14 попыток </p>
         </div>
     </template>
     <template v-else>
-        <div class="testCard testCard-background testCard-boxshadow pb-2" @click="next('test')">
-            <p class="testCard-title text-light mb-2">
+        <div class="testCard testCard-background testCard-boxshadow pb-2" @click="next()">
+            <p class="testCard-title text-light mb-2 d-flex align-items-center">
             <span>
                 <img src="@/assets/img/icon/info.svg" alt=""/>
             </span>
-                Проективные
+                {{ title }}
             </p>
             <ul class="d-flex flex-column">
-                <li class="testCard-arrow px-4 py-1 text-secondary" v-for="test in tests" :key="'test_'+test">Тест Название {{ test }}
+                <li
+                    class="testCard-arrow px-4 py-1 text-secondary"
+                    v-for="test in tests"
+                    :key="'test_'+test.id">
+                    {{ test.name }}
                 </li>
             </ul>
         </div>
@@ -25,22 +30,31 @@
 export default {
     name: "TestCard",
     props: {
+        title: {
+            type: String,
+            default() {
+                return ''
+            }
+        },
         tests: {
             type: Array,
-            default(){
+            default() {
                 return [];
             }
         },
-        isPassed:{
-            type:Boolean,
-            default(){
+        isPassed: {
+            type: Boolean,
+            default() {
                 return false;
             }
+        },
+        id: {
+            type: String
         }
     },
-    methods:{
-        next(params){
-            this.$router.push({name:params});
+    methods: {
+        next() {
+            this.$router.push({name: `test`, query: {id:this.id}});
         }
     }
 }

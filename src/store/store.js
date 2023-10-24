@@ -9,7 +9,7 @@ const vuexPersist = new VuexPersist({
 
 const store = createStore({
     state: {
-        user: {},
+        user: true,
     },
     plugins: [vuexPersist.plugin],
     mutations: {},

@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex justify-content-center align-items-center h-100">
-        <div class="tab tab-restrictions w-50">
+    <div class="auth d-flex justify-content-center align-items-center">
+        <div class="tab tab__restrictions h-75">
             <b-card no-body>
                 <b-tabs card>
                     <b-tab title="Вход" active class="w-75">

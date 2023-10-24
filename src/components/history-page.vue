@@ -1,7 +1,7 @@
 <template>
     <div>
         <p class="text-success mb-1">Личный кабинет - Все тесты</p>
-        <h2 class="text-primary">Все тесты</h2>
+        <h2 class="text-primary h2 fw-bold">{{history.to}}</h2>
     </div>
 </template>
 
@@ -10,13 +10,13 @@ export default {
     name: "HistoryPage",
     data() {
         return {
-            history: [],
+            history: {},
         };
     },
     created() {
         this.$router.beforeEach((to, from) => {
-            console.log(to, from);
-            this.history.push({from: from.path, to: to.path});
+            console.log(from.meta?.title);
+            this.history = {from: from.meta?.title, to: to.meta?.title};
         });
     },
 }

@@ -1,9 +1,8 @@
 <template>
     <template v-if="longDescription">
-        <div class="pb-5">
-            <history-page class="my-4"/>
-            <div class="row align-items-start">
-                <table class="attempts col-3 mb-4">
+            <HistoryPage class="my-4"/>
+            <div class="row flex-sm-column flex-md-row align-items-start">
+                <table class="attempts col-8 col-md-4 col-lg-3 mb-4">
                     <thead>
                     <tr>
                         <td>
@@ -25,7 +24,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="col-9 text-secondary">
+                <div class="col-12 col-md-8 col-lg-9 text-secondary">
                     <div class="testCard testCard-point mb-4">
                         Авторы: Арнольд Басс, Энн Дарки (1957)<br/>
                         Адаптация: А. К. Осницкий (1998); А. А. Хван и др. (2005)<br/>
@@ -86,12 +85,10 @@
                     </div>
                 </div>
             </div>
-        </div>
     </template>
     <template v-else>
-        <div class="pb-5">
             <div class="d-flex justify-content-between align-items-center">
-                <history-page class="my-4"/>
+                <HistoryPage class="my-4"/>
                 <b-button variant="primary" class="px-4" @click="next('finale')">Пройти тест</b-button>
             </div>
             <div class="testCard testCard-point  mb-4">
@@ -136,7 +133,6 @@
                 </table>
                 <b-button variant="primary">Все результаты</b-button>
             </div>
-        </div>
     </template>
 </template>
 
@@ -152,10 +148,15 @@ export default {
             longDescription: true
         }
     },
+    created() {
+        this.getTest(this.$router);
+    },
     methods: {
-        next(params) {
-            [params]
-            this.$router.push({name: 'finale'});
+        getTest(id){
+            console.log(id)
+        },
+        next() {
+            this.$router.push({name: 'response'});
         }
     }
 }
