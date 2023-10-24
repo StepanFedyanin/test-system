@@ -15,11 +15,25 @@ export default class extends REST {
     }
 
     static getCategory(){
-        return this._get('category',{},{}).then((data)=>{
+        return this._get(`category`,{},{}).then((data)=>{
             return data
         }).catch((error)=>{
             throw new RESTError(error, 'Не удалось получить категории');
         })
     }
 
+    static getTestForId(id){
+        return this._get(`test/${id}`,{},{}).then((data)=>{
+            return data
+        }).catch((error)=>{
+            throw new RESTError(error, 'Не удалось получить тест');
+        })
+    }
+    static getSubTest(id){
+        return this._get(`subtest/${id}`,{},{}).then((data)=>{
+            return data
+        }).catch((error)=>{
+            throw new RESTError(error, 'Не удалось получить сабтест');
+        })
+    }
 }

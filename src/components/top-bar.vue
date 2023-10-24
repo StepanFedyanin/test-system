@@ -1,14 +1,20 @@
 <template>
-    <div class="topBar ">
+    <div class="topBar">
         <div class="topBar__content p-4 align-items-center row">
-            <b-button class="topBar__title col-2" @click="next('profile')">Pro<span>Test</span>
+            <b-button class="topBar__title col-2" @click="next(user?'profile':null)">Pro<span>Test</span>
             </b-button>
-            <div :class="`topBar__menu ${showMainMenu?'topBar__menu--active':''} col-md-6 col-lg-7`" @click="handlerShowMainMenu">
-                <div :class="`${showMainMenu?'topBar__content--show':''} topBar__content d-flex flex-sm-column flex-md-row  gap-3`" @click="(e)=>e.stopPropagation()">
-                    <button @click="handlerShowMainMenu" :class="`topBar__burger ${showMainMenu?'topBar__burger--active':''}`">
+            <div :class="`topBar__nav ${showMainMenu?'topBar__nav--active':''} col-md-6 col-lg-7`"
+                 @click="handlerShowMainMenu">
+                <div
+                    :class="`${showMainMenu?'topBar__menu--show':''} topBar__menu d-flex flex-column flex-md-row  gap-3`"
+                    @click="(e)=>e.stopPropagation()">
+                    <button @click="handlerShowMainMenu"
+                            :class="`topBar__burger topBar__burger ${showMainMenu?'topBar__burger--active':''}`">
                         <span/>
                     </button>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0">Личный кабинет</b-button>
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-if="user">Личный
+                        кабинет
+                    </b-button>
                     <router-link
                         v-for="item in accountMenu"
                         :key="item.name"
@@ -18,10 +24,14 @@
                     >
                         {{ item.title }}
                     </router-link>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0">Выход</b-button>
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-if="user">Выход
+                    </b-button>
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-else @click="next()">
+                        вход / регистрация
+                    </b-button>
                 </div>
             </div>
-            <div v-if="user" class="d-sm-none d-md-flex col-md-4 col-lg-3">
+            <div v-if="user" class="d-none d-md-flex col-md-4 col-lg-3">
                 <div class="topBar__info d-flex align-items-center h5 text-primary gap-2" @click="handlerShowMenu">
                     {{ 'name@mail.ru' }}
                     <div class="topBar__user">
@@ -29,9 +39,11 @@
                     </div>
                 </div>
             </div>
-            <b-button v-else variant="outline-primary" class="col-2 py-2 px-3" @click="next">вход / регистрация
+            <b-button v-else variant="outline-primary" class="col-2 py-2 px-3 col-4  col-lg-3  d-none d-md-block"
+                      @click="next()">вход / регистрация
             </b-button>
-            <button @click="handlerShowMainMenu" :class="`${showMainMenu?'topBar__burger topBar__burger--active':'topBar__burger'}`">
+            <button @click="handlerShowMainMenu"
+                    :class="`${showMainMenu?'topBar__burger topBar__burger--active':'topBar__burger'}`">
                 <span/>
             </button>
         </div>
@@ -59,7 +71,7 @@ export default {
             accountMenu: [],
             showDropMenu: false,
             user: null,
-            showMainMenu:false
+            showMainMenu: false
         }
     },
     created() {
@@ -77,7 +89,7 @@ export default {
         handlerShowMenu() {
             this.showDropMenu = !this.showDropMenu;
         },
-        handlerShowMainMenu(){
+        handlerShowMainMenu() {
             this.showMainMenu = !this.showMainMenu;
         }
     }

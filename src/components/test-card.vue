@@ -8,7 +8,7 @@
     </template>
     <template v-else>
         <div class="testCard testCard-background testCard-boxshadow pb-2" @click="next()">
-            <p class="testCard-title text-light mb-2 d-flex align-items-center">
+            <p class="testCard-title text-light mb-2 d-flex gap-2">
             <span>
                 <img src="@/assets/img/icon/info.svg" alt=""/>
             </span>
@@ -18,7 +18,7 @@
                 <li
                     class="testCard-arrow px-4 py-1 text-secondary"
                     v-for="test in tests"
-                    :key="'test_'+test.id">
+                    :key="'test-'+test.id">
                     {{ test.name }}
                 </li>
             </ul>
@@ -54,7 +54,8 @@ export default {
     },
     methods: {
         next() {
-            this.$router.push({name: `test`, query: {id:this.id}});
+            this.$store.dispatch('addTestId', {test_id: this.id});
+            this.$router.push({name: `test`});
         }
     }
 }

@@ -46,7 +46,7 @@
             v-for="testCategory in testsCategory"
             :title="testCategory.name"
             :id="testCategory.id"
-            :key="testCategory.id"
+            :key="'TestCard'+testCategory.id"
             :isPassed="false"
             :tests="testCategory.test"
             class="col-sm-6 col-md-4 col-lg-3"
@@ -98,7 +98,6 @@ export default {
             this.testsCategory = res;
         }).catch((error) => {
             this.$store.dispatch('showError', error);
-            console.error(error);
         })
     },
     methods: {

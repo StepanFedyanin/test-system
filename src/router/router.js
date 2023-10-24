@@ -44,21 +44,21 @@ const notAuthorizedRoutes = [
                 path: '',
                 name: 'description',
                 component: testDescription,
-                meta: {title: 'Описание теста', step: 1, requiresAuth: true},
+                meta: {title: 'Описание', step: 1, requiresAuth: true},
                 props: true
             },
             {
                 path: '/response',
                 name: 'response',
                 component: testResponse,
-                meta: {title: 'Описание теста', step: 2, requiresAuth: true},
+                meta: {title: 'Тестирование', step: 2, requiresAuth: true},
                 props: true
             },
             {
-                path: '/finale',
+                path: 'finale',
                 name: 'finale',
                 component: testFinale,
-                meta: {title: 'Описание теста', step: 3, requiresAuth: true},
+                meta: {title: 'Заключение', step: 3, requiresAuth: true},
                 props: true
             }
         ]
@@ -133,8 +133,8 @@ const authorizedRoutes = [
     },
 ];
 
-const authUser = this?.$store?.state?.access;
-
+const authUser = this?.$store.state.user;
+console.log(this,'authUser')
 const router = createRouter({
     history: createWebHistory(),
     linkActiveClass: 'is-subactive',
@@ -144,7 +144,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     document.title = to.meta.title + ' - ProTest' || 'ProTest';
-    console.log(to, from, next);
     // if (to.matched.some(record => record.meta.requiresAuth)) {
     //     if (store.state.user && store.state.user.id) {
     //         let jwt = helpers.parseJwt(store.state.access);

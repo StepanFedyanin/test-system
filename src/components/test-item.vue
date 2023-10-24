@@ -1,6 +1,6 @@
 <template>
     <div class="test p-4 d-flex flex-column align-items-center">
-        <p class="h2 fw-bold mb-4">Временами не могу справиться с желанием навредить кому-либо</p>
+        <p class="h2 fw-bold mb-4">{{question}}</p>
         <div v-if="image" class="w-100 px-2 mb-4">
             <img class="w-auto" src="@/assets/img/temp/delitThem.png" alt="">
         </div>
@@ -102,6 +102,9 @@ export default {
         type: {
             type: String,
             default: 'checkbox'
+        },
+        question:{
+            type:String
         }
     }
 }
