@@ -12,9 +12,7 @@
                             :class="`topBar__burger topBar__burger ${showMainMenu?'topBar__burger--active':''}`">
                         <span/>
                     </button>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-if="user">Личный
-                        кабинет
-                    </b-button>
+                    <router-link class="topBar__link text-uppercase fw-bold d-block d-md-none" to="/profile" v-if="user">Личный кабинет</router-link>
                     <router-link
                         v-for="item in accountMenu"
                         :key="item.name"
@@ -24,7 +22,7 @@
                     >
                         {{ item.title }}
                     </router-link>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-if="user">Выход
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-block d-md-none" v-if="user">Выход
                     </b-button>
                     <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-else @click="next()">
                         вход / регистрация
@@ -75,7 +73,7 @@ export default {
         }
     },
     created() {
-        this.user = this.$store.state.user;
+        this.user = !this.$store.state.user;
         if (this.user) {
             this.accountMenu = accountMenu.authorized;
         } else {

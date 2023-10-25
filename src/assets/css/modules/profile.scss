@@ -10,22 +10,26 @@
 
 @media (max-width: 992px) {
   .user {
-    position: absolute;
-    height: 80px;
-    width: 40px;
-    left: 0;
-    background: rgba(var(--bs-primary-rgb), 1);
-    border-bottom-right-radius: $b-radius;
-    border-top-right-radius: $b-radius;
-    &:before{
-      content: 'Меню';
-      color: #FFFFFF;
+    &__toggle {
       position: absolute;
-      transform: rotate(-90deg);
-      left: -5px;
-      top: 27px;
-      font-weight: 600;
+      height: 80px;
+      width: 40px;
+      left: 0;
+      z-index: 20;
+      background: rgba(var(--bs-primary-rgb), 1);
+      border-bottom-right-radius: $b-radius;
+      border-top-right-radius: $b-radius;
+
+      p {
+        position: absolute;
+        transform: rotate(-90deg);
+        left: -5px;
+        top: 27px;
+        z-index: 21;
+      }
     }
+
+
     &__active {
       width: 100%;
       left: 0;
@@ -36,7 +40,10 @@
       bottom: 0;
       background: rgba(0, 0, 0, 0.32);
       z-index: 1000;
-      &:before{content: none}
+
+      &:before {
+        content: none
+      }
     }
   }
 }

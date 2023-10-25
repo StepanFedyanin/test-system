@@ -18,7 +18,7 @@ const testTemplate = () => {
 
 const store = createStore({
     state: {
-        user: false,
+        user: true,
         error:null
     },
     plugins: [vuexPersist.plugin],

@@ -15,14 +15,14 @@ const notAuthorizedRoutes = [
         path: '/',
         name: 'home',
         component: home,
-        meta: {title: ''},
+        meta: {title: 'Приветствие'},
         props: true
     },
     {
         path: '/auth',
         name: 'auth',
         component: auth,
-        meta: {title: ''},
+        meta: {title: 'Авторизация'},
         props: true,
     },
     {
@@ -36,7 +36,7 @@ const notAuthorizedRoutes = [
         path: '/test',
         name: 'test',
         component: Test,
-        meta: {title: 'ProTest'},
+        meta: {title: ''},
         props: true,
         redirect: {name: 'description'},
         children: [
@@ -69,14 +69,14 @@ const authorizedRoutes = [
         path: '/',
         name: 'home',
         component: home,
-        meta: {title: ''},
+        meta: {title: 'Приветствие'},
         props: true
     },
     {
         path: '/auth',
         name: 'auth',
         component: auth,
-        meta: {title: ''},
+        meta: {title: 'Авторизация'},
         props: true,
     },
     {

@@ -34,8 +34,13 @@
                         <b-button variant="primary" class="px-4 py-2 w-100" @click="startSubTest()">Начать</b-button>
                     </div>
                     <div class="swiper-slide" v-for="question in test.select_subtest.question"
-                         :key="'question_'+question.id">
-                        <TestItem :question="question.name"/>
+                         :key="'questionGroup_'+question.id">
+                        <TestItem
+                            :title="question.name"
+                            :answers="question.answer"
+                            :question_img="question.question_img"
+                            :type_question="question.type_question"
+                        />
                     </div>
                 </div>
             </div>
@@ -125,8 +130,8 @@ export default {
             clearTimeout(this.timer)
         },
         onSubmit() {
+            this.test.active_subtest += 1;
             if (this.test.active_subtest <= this.test.subtest.length - 1) {
-                this.test.active_subtest += 1;
                 this.getSubTest();
             } else {
                 this.next();
@@ -138,6 +143,7 @@ export default {
         getSubTest() {
             this.showLoaderSending = true;
             this.stopTimer();
+            console.log(this.test.subtest[this.test.active_subtest]);
             app.getSubTest(this.test.subtest[this.test.active_subtest].id).then(data => {
                 this.$store.dispatch('updateTest', {...this.test, select_subtest: data});
                 this.showLoaderSending = false;
