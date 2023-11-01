@@ -13,12 +13,13 @@ const testTemplate = () => {
         active_subtest: 0,
         name: null,
         sdescription: null,
+        answer:[]
     }
 };
 
 const store = createStore({
     state: {
-        user: true,
+        user: false,
         error:null
     },
     plugins: [vuexPersist.plugin],
@@ -33,6 +34,9 @@ const store = createStore({
         UPDATE_TEST(state, test) {
             state.test = test
         },
+        UPDATE_ANSWER(state, answer){
+            state.test.answer.push(answer)
+        },
         ERROR(state, error) {
             state.error = error;
         },
@@ -46,6 +50,9 @@ const store = createStore({
         },
         updateTest(context, params) {
             context.commit('UPDATE_TEST', params);
+        },
+        updateAnswer(context, params) {
+            context.commit('UPDATE_ANSWER', params);
         },
         showError(context, error) {
             context.commit('ERROR', error);

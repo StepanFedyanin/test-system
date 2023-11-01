@@ -36,14 +36,21 @@
         <b-form-input
             class="form__input"
             placeholder="Поиск"
+            v-model="currentFilter.searchValue"
         />
         <b-button pill variant="light">
             <img src="@/assets/img/icon/search.svg" alt="">
         </b-button>
     </div>
-    <div class="row gx-2">
+    <b-overlay
+        :show="showLoaderTests"
+        class="row gx-2"
+        rounded
+        spinner-big
+        spinner-variant="primary"
+    >
         <TestCard
-            v-for="testCategory in testsCategory"
+            v-for="testCategory in filteredTestsCategory"
             :title="testCategory.name"
             :id="testCategory.id"
             :key="'TestCard'+testCategory.id"
@@ -51,7 +58,7 @@
             :tests="testCategory.test"
             class="col-sm-6 col-md-4 col-lg-3"
         />
-    </div>
+    </b-overlay>
 </template>
 
 <script>
@@ -90,15 +97,24 @@ export default {
                 }
             ],
             currentFilter: {type: 'test', sorted: 'difficulties', searchValue: ''},
-            testsCategory: []
+            testsCategory: [],
+            showLoaderTests: true
         }
     },
     created() {
+        this.showLoaderTests = true;
         app.getCategory().then((res) => {
             this.testsCategory = res;
+            this.showLoaderTests = false;
         }).catch((error) => {
             this.$store.dispatch('showError', error);
+            this.showLoaderTests = false;
         })
+    },
+    computed: {
+        filteredTestsCategory() {
+            return this.testsCategory.filter(item => item.test.some(test => test.name.toLowerCase().includes(this.currentFilter.searchValue.toLowerCase())))
+        }
     },
     methods: {
         changeCurrentType(type) {

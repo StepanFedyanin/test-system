@@ -36,10 +36,12 @@
                     <div class="swiper-slide" v-for="question in test.select_subtest.question"
                          :key="'questionGroup_'+question.id">
                         <TestItem
+                            :answerId="question.id"
                             :title="question.name"
                             :answers="question.answer"
                             :question_img="question.question_img"
                             :type_question="question.type_question"
+                            @changeAnswer="changeAnswer"
                         />
                     </div>
                 </div>
@@ -81,12 +83,17 @@ export default {
             test: null,
             timerValue: 1000000,
             isStartTesting: false,
-            showLoaderSending: false
+            showLoaderSending: true,
+            selectAnswer: []
         }
     },
     created() {
         this.test = this.$store.state.test;
-        this.getSubTest();
+        if (this.test.subtest[this.test.active_subtest]) {
+            this.getSubTest();
+        } else {
+            this.next('tests');
+        }
     },
     setup() {
         const swiper = ref(null);
@@ -130,12 +137,12 @@ export default {
             clearTimeout(this.timer)
         },
         onSubmit() {
-            this.test.active_subtest += 1;
             if (this.test.active_subtest <= this.test.subtest.length - 1) {
                 this.getSubTest();
             } else {
                 this.next();
             }
+            this.test.active_subtest += 1;
         },
         next(params) {
             this.$router.push(params || 'finale');
@@ -143,9 +150,9 @@ export default {
         getSubTest() {
             this.showLoaderSending = true;
             this.stopTimer();
-            console.log(this.test.subtest[this.test.active_subtest]);
-            app.getSubTest(this.test.subtest[this.test.active_subtest].id).then(data => {
+            app.getSubTest(this.test.subtest[this.test.active_subtest]?.id).then(data => {
                 this.$store.dispatch('updateTest', {...this.test, select_subtest: data});
+                this.test = this.$store.state.test;
                 this.showLoaderSending = false;
                 this.startTimer();
             }).catch(err => {
@@ -157,6 +164,9 @@ export default {
             this.isStartTesting = true;
             this.startTimer();
             this.swiper.slideNext();
+        },
+        changeAnswer(answer) {
+            this.selectAnswer = answer;
         }
     }
 }

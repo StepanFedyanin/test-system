@@ -24,7 +24,7 @@
                     </router-link>
                     <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-block d-md-none" v-if="user">Выход
                     </b-button>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0" v-else @click="next()">
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-block d-md-none" v-else @click="next()">
                         вход / регистрация
                     </b-button>
                 </div>
@@ -73,7 +73,7 @@ export default {
         }
     },
     created() {
-        this.user = !this.$store.state.user;
+        this.user = this.$store.state.user;
         if (this.user) {
             this.accountMenu = accountMenu.authorized;
         } else {
