@@ -22,9 +22,9 @@
                     >
                         {{ item.title }}
                     </router-link>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-block d-md-none" v-if="user">Выход
-                    </b-button>
-                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-block d-md-none" v-else @click="next()">
+                    <a class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-block d-md-none" v-if="user">Выход
+                    </a>
+                    <b-button class="topBar__link topBar__menu--item text-uppercase fw-bold p-0 d-flex d-md-none" v-else @click="next()">
                         вход / регистрация
                     </b-button>
                 </div>

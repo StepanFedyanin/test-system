@@ -1,6 +1,6 @@
 <template>
     <top-bar class="mb-4"/>
-    <HistoryPage class="mb-4"/>
+    <HistoryPage class="mb-4" :breadcrumbs="breadcrumb.breadcrumbs" :breadcrumbs-active="breadcrumb.active"/>
     <div class="testCard testCard-point text-secondary mb-4">
         Быстрая навигация по популярным тестам и тематикам. Всего на сайте более тысячи тестов, найти нужный можно
         при помощи подробного <span class="text-primary">тематического указателя</span>, по каталогу
@@ -98,7 +98,11 @@ export default {
             ],
             currentFilter: {type: 'test', sorted: 'difficulties', searchValue: ''},
             testsCategory: [],
-            showLoaderTests: true
+            showLoaderTests: true,
+            breadcrumb:{
+                breadcrumbs:[],
+                active:'Все тесты'
+            }
         }
     },
     created() {

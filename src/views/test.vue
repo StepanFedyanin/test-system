@@ -1,7 +1,7 @@
 <template>
     <TopBar class="mb-4"/>
-    <history-page class="mb-4"/>
-        <router-view/>
+    <history-page class="mb-4" />
+    <router-view/>
 </template>
 
 <script>

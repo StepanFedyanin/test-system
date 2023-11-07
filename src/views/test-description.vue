@@ -6,7 +6,6 @@
         spinner-variant="primary"
     >
         <template v-if="longDescription">
-            <HistoryPage class="my-4"/>
             <div class="row flex-sm-column flex-md-row align-items-start">
                 <table class="attempts col-8 col-md-4 col-lg-3 mb-4">
                     <thead>
@@ -94,7 +93,6 @@
         </template>
         <template v-else>
             <div class="d-flex justify-content-between align-items-center">
-                <HistoryPage class="my-4"/>
                 <b-button variant="primary" class="px-4" @click="next('finale')">Пройти тест</b-button>
             </div>
             <div class="testCard testCard-point  mb-4">
@@ -145,17 +143,15 @@
 
 <script>
 import app from "@/services/app";
-import HistoryPage from "@/components/history-page.vue";
 
 export default {
     name: "TestDescription",
-    components: {HistoryPage},
     data() {
         return {
             test: null,
             attempts: ['24.07.2023', '24.07.2023', '24.07.2023', '24.07.2023', '24.07.2023'],
             longDescription: true,
-            showLoaderTest:true,
+            showLoaderTest: true,
         }
     },
     created() {
@@ -169,7 +165,7 @@ export default {
                 this.$store.dispatch('updateTest', {...this.test, ...data});
                 this.test = this.$store.state.test;
                 this.showLoaderTest = false;
-            }).catch(err=>{
+            }).catch(err => {
                 this.$store.dispatch('showError', err);
                 this.showLoaderTest = false;
             });
