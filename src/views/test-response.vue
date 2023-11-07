@@ -7,59 +7,61 @@
         spinner-variant="primary"
     >
         <div class="col-12 col-sm-12 col-md-10  row">
-            <div class="swiper swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="testCard testCard-point  mb-4">
-                            Авторы: Арнольд Басс, Энн Дарки (1957)<br/>
-                            Адаптация: А. К. Осницкий (1998); А. А. Хван и др. (2005)<br/>
-                            смотрите замечания по методике<br/>
+            <template v-if="!isStartTesting">
+                <div class="testCard testCard-point  mb-4">
+                    Авторы: Арнольд Басс, Энн Дарки (1957)<br/>
+                    Адаптация: А. К. Осницкий (1998); А. А. Хван и др. (2005)<br/>
+                    смотрите замечания по методике<br/>
+                </div>
+                <div class="testCard testCard-point  mb-4">
+                    Шкала тревоги Спилбергера-Ханина (State-Trait Anxiety Inventory, STAI) является
+                    информативным способом
+                    самооценки как уровня тревожности в данный момент (реактивная тревожность, как состояние),
+                    так и
+                    личностной
+                    тревожности (как устойчивая характеристика человека).
+                    <br/>
+                    <br/>
+                    Шкала тревоги Спилбергера-Ханина (State-Trait Anxiety Inventory, STAI) является
+                    информативным способом
+                    самооценки как уровня тревожности в данный момент (реактивная тревожность, как состояние),
+                    так и
+                    личностной
+                    тревожности (как устойчивая характеристика человека).
+                </div>
+                <b-button variant="primary" class="px-4 py-2 w-100" @click="startSubTest()">Начать</b-button>
+            </template>
+            <template v-else>
+                <div class="swiper swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="question in test.select_subtest.question"
+                             :key="'questionGroup_'+question.id">
+                            <TestItem
+                                :answerId="question.id"
+                                :title="question.name"
+                                :answers="question.answer"
+                                :question_img="question.question_img"
+                                :type_question="question.type_question"
+                                @changeAnswer="changeAnswer"
+                            />
                         </div>
-                        <div class="testCard testCard-point  mb-4">
-                            Шкала тревоги Спилбергера-Ханина (State-Trait Anxiety Inventory, STAI) является
-                            информативным способом
-                            самооценки как уровня тревожности в данный момент (реактивная тревожность, как состояние),
-                            так и
-                            личностной
-                            тревожности (как устойчивая характеристика человека).
-                            <br/>
-                            <br/>
-                            Шкала тревоги Спилбергера-Ханина (State-Trait Anxiety Inventory, STAI) является
-                            информативным способом
-                            самооценки как уровня тревожности в данный момент (реактивная тревожность, как состояние),
-                            так и
-                            личностной
-                            тревожности (как устойчивая характеристика человека).
-                        </div>
-                        <b-button variant="primary" class="px-4 py-2 w-100" @click="startSubTest()">Начать</b-button>
-                    </div>
-                    <div class="swiper-slide" v-for="question in test.select_subtest.question"
-                         :key="'questionGroup_'+question.id">
-                        <TestItem
-                            :answerId="question.id"
-                            :title="question.name"
-                            :answers="question.answer"
-                            :question_img="question.question_img"
-                            :type_question="question.type_question"
-                            @changeAnswer="changeAnswer"
-                        />
                     </div>
                 </div>
-            </div>
-            <div v-if="isStartTesting" class="tools">
-                <b-button variant="outline-primary" class="px-4 py-2" @click="changeQuestion('prev')">Назад</b-button>
-                <div class="d-flex gap-2">
-                    <button
-                        v-for="(slide,index) in swiper?.slides.slice(1)"
-                        :key="slide"
-                        :class="`tools__pagination ${swiper.activeIndex>=index + 1?'tools__pagination--active':''}`"
-                        @click="changeQuestion(index + 1,true)"
-                    >
-                        {{ index + 1 }}
-                    </button>
+                <div v-if="isStartTesting" class="tools">
+                    <b-button variant="outline-primary" class="px-4 py-2" @click="changeQuestion('prev')">Назад</b-button>
+                    <div class="d-flex gap-2">
+                        <button
+                            v-for="(slide,index) in swiper?.slides"
+                            :key="slide"
+                            :class="`tools__pagination ${swiper.activeIndex>=index?'tools__pagination--active':''}`"
+                            @click="changeQuestion(index + 1,true)"
+                        >
+                            {{ index + 1 }}
+                        </button>
+                    </div>
+                    <b-button variant="primary" class="px-4 py-2" @click="changeQuestion('next')">Далее</b-button>
                 </div>
-                <b-button variant="primary" class="px-4 py-2" @click="changeQuestion('next')">Далее</b-button>
-            </div>
+            </template>
         </div>
         <div v-if="isStartTesting" class="col-12 col-md-2 d-flex justify-content-end align-items-start">
             <p class="counter py-3 text-primary h3 fw-bold">
@@ -71,7 +73,6 @@
 
 <script>
 import TestItem from "@/components/test-item.vue";
-import {onMounted, ref} from "vue";
 import Swiper from "swiper";
 import app from "@/services/app";
 
@@ -81,7 +82,7 @@ export default {
     data() {
         return {
             test: null,
-            timerValue: 1000000,
+            timerValue: 1000,
             isStartTesting: false,
             showLoaderSending: true,
             selectAnswer: []
@@ -95,16 +96,6 @@ export default {
             this.next('tests');
         }
     },
-    setup() {
-        const swiper = ref(null);
-        onMounted(() => {
-            const options = {};
-            swiper.value = new Swiper('.swiper-container', options);
-        });
-        return {
-            swiper,
-        };
-    },
     mounted() {
     },
     computed: {
@@ -113,7 +104,12 @@ export default {
         }
     },
     methods: {
+        initSwiper() {
+            const options = {};
+            this.swiper = new Swiper('.swiper-container', options);
+        },
         changeQuestion(type, meaning = false) {
+            console.log(this.swiper.activeIndex)
             if (this.swiper.activeIndex === this.swiper.slides.length - 1) {
                 this.onSubmit();
             }
@@ -154,7 +150,7 @@ export default {
                 this.$store.dispatch('updateTest', {...this.test, select_subtest: data});
                 this.test = this.$store.state.test;
                 this.showLoaderSending = false;
-                this.startTimer();
+                this.isStartTesting = false;
             }).catch(err => {
                 this.$store.dispatch('showError', err);
                 this.showLoaderSending = false;
@@ -162,8 +158,10 @@ export default {
         },
         startSubTest() {
             this.isStartTesting = true;
-            this.startTimer();
-            this.swiper.slideNext();
+            this.$nextTick(()=>{
+                this.initSwiper();
+                this.startTimer();
+            })
         },
         changeAnswer(answer) {
             this.selectAnswer = answer;
