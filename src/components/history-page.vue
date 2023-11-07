@@ -1,9 +1,28 @@
 <template>
     <div>
-        <ul class="d-flex gap-2 text-success mb-1">
-            <li v-for="(breadcrumb,index) in breadcrumbs" :key="breadcrumb.title+index" @click="next(breadcrumb.name)">{{ breadcrumb.title }}</li>
-        </ul>
-        <h2 class="text-primary h2 fw-bold">{{ breadcrumbsActive }}</h2>
+        <ol
+            v-if="$breadcrumbs.value"
+            class="breadcrumb"
+        >
+            <li
+                v-for="(item, index) in $breadcrumbs.value"
+                :key="`breadcrumbs-${index}`"
+                class="breadcrumb-item small"
+
+            >
+                <router-link
+                    v-if="!item.current"
+                    :to="item.link"
+                >
+                    {{ item.label }}
+                </router-link>
+                <span
+                    v-else
+                >
+                {{ item.label }}
+            </span>
+            </li>
+        </ol>
     </div>
 </template>
 
@@ -30,7 +49,8 @@ export default {
         };
     },
     created() {
-        console.log(window.history.state)
+        console.log(this.$breadcrumbs.value)
+        this.history = this.$breadcrumbs;
     },
     methods: {
         next(params) {
