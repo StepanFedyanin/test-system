@@ -145,7 +145,7 @@
 import app from "@/services/app";
 
 export default {
-    name: "TestDescription",
+    name: "test-description",
     data() {
         return {
             test: null,

@@ -67,7 +67,7 @@
 <script>
 
 export default {
-    name: "TestItem",
+    name: "test-item",
     props: {
         answerId: {
             type: Number

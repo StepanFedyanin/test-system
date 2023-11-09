@@ -20,7 +20,7 @@ const app = {
 const accountMenu = {
     authorized:[
         {
-            link: '/tests',
+            link: '/all_tests',
             name: 'allTests',
             title: 'Все тесты'
         },

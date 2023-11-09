@@ -63,7 +63,7 @@
 import {accountMenu} from '@/settings';
 
 export default {
-    name: "TopBar",
+    name: "top-bar",
     data() {
         return {
             accountMenu: [],
@@ -73,7 +73,7 @@ export default {
         }
     },
     created() {
-        this.user = this.$store.state.user;
+        this.user = !this.$store.state.user;
         if (this.user) {
             this.accountMenu = accountMenu.authorized;
         } else {

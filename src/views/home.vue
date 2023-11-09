@@ -25,11 +25,11 @@
 import TopBar from "@/components/top-bar.vue";
 
 export default {
-    name: "NamePage",
+    name: "home",
     components: {TopBar},
     methods: {
         next(params) {
-            this.$router.push(params || 'auth');
+            this.$router.push({name:params || 'auth'});
         }
     }
 

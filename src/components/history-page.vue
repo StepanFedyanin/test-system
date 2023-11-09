@@ -28,7 +28,7 @@
 
 <script>
 export default {
-    name: "HistoryPage",
+    name: "history-page",
     props: {
         breadcrumbs: {
             type: Array,
@@ -44,13 +44,14 @@ export default {
         }
     },
     data() {
-        return {
-            history: {},
-        };
     },
     created() {
-        console.log(this.$breadcrumbs.value)
-        this.history = this.$breadcrumbs;
+        this.$nextTick(() => {
+            console.log(this.$breadcrumbs.value)
+            if (this.$breadcrumbs.value[this.$breadcrumbs.value.length - 1].link === 'test') {
+                this.$breadcrumbs.value[this.$breadcrumbs.value.length - 1].label = this.$store.state.test.name
+            }
+        })
     },
     methods: {
         next(params) {

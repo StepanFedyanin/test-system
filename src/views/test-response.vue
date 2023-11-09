@@ -77,7 +77,7 @@ import Swiper from "swiper";
 import app from "@/services/app";
 
 export default {
-    name: "TestResponse",
+    name: "test-response",
     components: {TestItem},
     data() {
         return {

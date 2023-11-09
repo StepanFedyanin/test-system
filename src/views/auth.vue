@@ -65,7 +65,7 @@
 
 <script>
 export default {
-    name: "AuthPage",
+    name: "auth-page",
     data() {
         return {
             selectType: "",
